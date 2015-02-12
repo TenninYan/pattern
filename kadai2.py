@@ -61,9 +61,16 @@ for i in range(1000):
             print W
             break
 
+invX = np.dot(np.linalg.inv(np.dot(X.T,X)),X.T)
+W2 = np.dot(invX,T)
+
 x = np.linspace(-3.5,4.5,100)
 y1 = -(W[1]/W[2])*x-W[0]/W[2]
 plt.plot(x,y1,"c")
+
+y2 = -(W2[1]/W2[2])*x-W2[0]/W2[2]
+plt.plot(x,y2,"m")
+print W2
 
 # train1_dataを青色の点で表示
 plt.plot(train1_data[:,0],train1_data[:,1],"go",label="train1")
@@ -104,10 +111,10 @@ for i in range(20):
 # plt.plot(test2_data[:,0],test2_data[:,1],"r^",label="test2-positive")
 
 #タイトルの表示
-plt.title("kadai1")
+plt.title("kadai2")
 
 # 凡例を表示
-plt.legend(["line1","train1","train2","test1-positive","test1-negative","test2-positive","test2-negative"],loc="upper left",numpoints=1,prop={"size":12})
+plt.legend(["line1","line2","train1","train2","test1-positive","test1-negative","test2-positive","test2-negative"],loc="upper left",numpoints=1,prop={"size":12})
 
 plt.xlim(-4,5)
 

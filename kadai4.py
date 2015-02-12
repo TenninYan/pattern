@@ -49,10 +49,11 @@ for k in range(3):
         x = np.r_[x1,x2,x3]
         x.resize(3,10)
     
-        S = np.zeros((3,3))
-        for a in range(3):
-            for b in range(3):
-                S[a][b]=np.dot(x[a],x[b].T)/10
+        # S = np.zeros((3,3))
+        # for a in range(3):
+        #     for b in range(3):
+        #         S[a][b]=np.dot(x[a],x[b].T)/10
+        S = np.cov(omega_data[k],rowvar=0)
         S_det = np.linalg.det(S)
         S_inv = np.linalg.inv(S)
         for j in range(4):
@@ -60,7 +61,7 @@ for k in range(3):
             delta = test[j]-u[k]
             # length[k][j] = np.sqrt(np.dot(temp2,temp.T))
             length[k][j] = np.sqrt(np.dot(np.dot(delta,S_inv),delta.T))
-            g[k][j] = -0.5*length[k][j]
+            g[k][j] = -0.5*length[k][j]-0.5*np.log(S_det)-3/2*np.log(np.pi)+np.log(0.3)
 
 # # ここから重みの計算
 # #train1_dataとtrain2_dataをくっつける
